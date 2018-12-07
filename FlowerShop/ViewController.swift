@@ -34,7 +34,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let configuration = ARWorldTrackingConfiguration()
         
         // Object Detection
-        configuration.detectionObjects = ARReferenceObject.referenceObjects(inGroupNamed: "ParfumObjects", bundle: Bundle.main)!
+        configuration.detectionObjects = ARReferenceObject.referenceObjects(
+            inGroupNamed: "ParfumObjects",
+            bundle: Bundle.main
+        )!
 
         // Run the view's session
         sceneView.session.run(configuration)
@@ -54,18 +57,28 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let node = SCNNode()
         
         if let objectAnchor = anchor as? ARObjectAnchor {
-            let plane = SCNPlane(width: CGFloat(objectAnchor.referenceObject.extent.x), height: CGFloat(objectAnchor.referenceObject.extent.y))
+            let plane = SCNPlane(
+                width: CGFloat(objectAnchor.referenceObject.extent.x),
+                height: CGFloat(objectAnchor.referenceObject.extent.y)
+            )
             
             plane.cornerRadius = plane.width / 8
             
-            let spriteKitScene = SKScene(fileNamed: "ProductInfo")
+            let fileName = objectAnchor.referenceObject.name == "prada2" ? "ProductInfo" : "ProductInfo2"
+            let spriteKitScene = SKScene(fileNamed: fileName)
             
             plane.firstMaterial?.diffuse.contents = spriteKitScene
             plane.firstMaterial?.isDoubleSided = true
-            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
+            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(
+                SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0
+            )
             
             let planeNode = SCNNode(geometry: plane)
-            planeNode.position = SCNVector3Make(objectAnchor.referenceObject.center.x, objectAnchor.referenceObject.center.y + 0.17, objectAnchor.referenceObject.center.z)
+            planeNode.position = SCNVector3Make(
+                objectAnchor.referenceObject.center.x,
+                objectAnchor.referenceObject.center.y + 0.17,
+                objectAnchor.referenceObject.center.z
+            )
             
             node.addChildNode(planeNode)
             
