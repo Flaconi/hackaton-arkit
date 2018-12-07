@@ -5,6 +5,12 @@
   },
   "resources" : [
     {
+      "filename" : "boss.arobject"
+    },
+    {
+      "filename" : "boss2.arobject"
+    },
+    {
       "filename" : "bossprivateaccord.arobject"
     },
     {
